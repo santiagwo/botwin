@@ -13,8 +13,6 @@
       margin: 0;
       padding: 20px;
       scroll-behavior: smooth;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
     }
     h1, h2 {
       text-align: center;
@@ -27,217 +25,156 @@
     input[type="text"] {
       width: 70%;
       max-width: 400px;
-      padding: 12px 15px;
-      font-size: 18px;
-      border-radius: 8px;
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 6px;
       border: none;
       margin-right: 10px;
-      box-sizing: border-box;
     }
     button {
-      padding: 13px 22px;
-      font-size: 18px;
+      padding: 11px 18px;
+      font-size: 16px;
       border: none;
       background: #28a745;
       color: white;
-      border-radius: 8px;
+      border-radius: 6px;
       cursor: pointer;
-      transition: background 0.3s ease, transform 0.15s ease;
-      box-shadow: 0 4px 8px rgba(40, 167, 69, 0.4);
+      transition: background 0.3s ease;
     }
     button:hover {
       background: #218838;
-      transform: scale(1.05);
-      box-shadow: 0 6px 12px rgba(33, 136, 56, 0.6);
     }
     #loading {
       text-align: center;
       margin: 20px 0;
       display: none;
-      font-size: 18px;
-      font-weight: bold;
     }
     #search-bar {
       text-align: center;
       margin: 30px 0 10px;
     }
     #search-input {
-      padding: 12px 15px;
+      padding: 10px;
       width: 70%;
       max-width: 400px;
-      font-size: 18px;
-      border-radius: 8px;
+      font-size: 16px;
+      border-radius: 6px;
       border: none;
-      box-sizing: border-box;
-      background: #222;
-      color: #eee;
     }
     .section-title {
-      font-size: 24px;
+      font-size: 22px;
       margin: 40px 0 20px;
       text-align: center;
-      border-bottom: 1.5px solid #333;
-      padding-bottom: 8px;
-      font-weight: 700;
+      border-bottom: 1px solid #333;
+      padding-bottom: 6px;
     }
     #games-container {
       display: none;
     }
     .games-list {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 24px;
-      margin-bottom: 40px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      justify-items: center;
     }
     .game-card {
       background: #1e1e1e;
-      border-radius: 14px;
-      width: 250px;
-      padding: 18px 15px 22px;
+      border-radius: 12px;
+      width: 100%;
+      max-width: 250px;
+      padding: 15px;
       text-align: center;
-      box-shadow: 0 0 8px #000;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      box-shadow: 0 0 5px #000;
+      transition: transform 0.3s ease;
     }
     .game-card:hover {
-      transform: scale(1.04);
-      box-shadow: 0 0 14px #28a745;
+      transform: scale(1.05);
+      box-shadow: 0 0 15px #28a745;
     }
     .game-card img {
       width: 100%;
-      border-radius: 10px;
-      margin-bottom: 14px;
-      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      object-fit: contain;
       height: 140px;
     }
     .game-name {
-      font-weight: 700;
-      font-size: 20px;
-      margin-bottom: 10px;
-      min-height: 48px;
-      color: #fff;
+      font-weight: bold;
+      font-size: 18px;
+      margin-bottom: 8px;
     }
     .progress-bar {
       background: #444;
-      border-radius: 12px;
+      border-radius: 8px;
       overflow: hidden;
-      margin-bottom: 8px;
-      width: 100%;
-      height: 22px;
+      margin-bottom: 6px;
     }
     .progress-fill {
-      height: 100%;
+      height: 20px;
       width: 0%;
       transition: width 0.6s ease;
-      border-radius: 12px;
+      border-radius: 8px;
     }
     .chance-text {
-      font-weight: 700;
-      margin-bottom: 8px;
-      font-size: 16px;
-      color: #eee;
+      font-weight: bold;
+      margin-bottom: 5px;
     }
     .players-now {
-      font-size: 15px;
-      color: #bbb;
-      margin-bottom: 14px;
-      font-weight: 600;
+      font-size: 14px;
+      color: #ccc;
+      margin-bottom: 12px;
     }
     .btn-play {
       display: inline-block;
       background: #007bff;
       color: white;
-      padding: 14px 24px;
-      border-radius: 10px;
+      padding: 10px 18px;
+      border-radius: 6px;
       text-decoration: none;
-      font-weight: 700;
-      font-size: 18px;
-      transition: background 0.3s ease, box-shadow 0.3s ease;
-      user-select: none;
-      width: 100%;
-      text-align: center;
+      font-weight: bold;
+      transition: background 0.3s ease;
     }
     .btn-play:hover {
       background: #0056b3;
-      box-shadow: 0 0 15px #0056b3;
     }
 
-    /* MOBILE IMPROVEMENTS */
-    @media (max-width: 768px) {
-      body {
-        padding: 15px 10px;
+    /* Responsividade */
+    @media (max-width: 899px) {
+      .games-list {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
       }
+    }
+    @media (max-width: 599px) {
       input[type="text"], #search-input {
-        width: 100%;
-        max-width: 100%;
-        font-size: 20px;
-        margin-bottom: 15px;
-        border-radius: 10px;
-      }
-      button {
-        width: 100%;
-        max-width: 100%;
-        font-size: 20px;
-        padding: 15px 0;
-        margin-bottom: 25px;
-        border-radius: 10px;
+        width: 90%;
+        max-width: none;
       }
       .games-list {
-        flex-direction: column;
-        gap: 30px;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
       }
       .game-card {
-        width: 100%;
-        max-width: 440px;
-        padding: 20px 20px 28px;
-        margin: 0 auto;
-      }
-      .game-card img {
-        height: 160px;
-      }
-      .game-name {
-        font-size: 22px;
-        min-height: auto;
-      }
-      .progress-bar {
-        height: 26px;
-      }
-      .chance-text {
-        font-size: 18px;
-      }
-      .players-now {
-        font-size: 16px;
-      }
-      .btn-play {
-        font-size: 20px;
-        padding: 16px 0;
-        border-radius: 12px;
+        max-width: 100%;
       }
     }
-
     footer {
       text-align: center;
-      padding: 22px 10px;
-      font-size: 15px;
+      padding: 20px;
+      font-size: 14px;
       color: #777;
-      user-select: none;
-      line-height: 1.4;
-      border-top: 1px solid #333;
-      margin-top: 50px;
+      margin-top: 60px;
     }
     #header-logo {
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 12px;
-      margin-bottom: 25px;
+      gap: 10px;
+      margin-bottom: 20px;
     }
     #header-logo img {
-      width: 56px;
-      height: 56px;
+      width: 50px;
+      height: 50px;
     }
   </style>
 </head>
@@ -271,7 +208,7 @@
   </div>
 
   <footer>
-    © 2025 <strong>Team Sybot</strong> — Todos os direitos reservados.<br />
+    © 2025 <strong>Synboot</strong> — Todos os direitos reservados.<br />
     🔞 Jogue com responsabilidade. Apenas para maiores de 18 anos.<br />
     Nenhuma aposta é garantida. As análises são apenas indicativas.
   </footer>
@@ -347,7 +284,7 @@
         document.getElementById("loading").style.display = "none";
         createGameCards();
         updateGamesData();
-        intervalID = setInterval(updateGamesData, 80000); // atualiza a cada 80 segundos
+        intervalID = setInterval(updateGamesData, 80000);
       }, 1000);
     }
 
@@ -384,12 +321,9 @@
           const index = parseInt(card.getAttribute("data-index"));
           const game = games[category][index];
 
-          // Chance entre 0 e 85%
           const chance = Math.floor(Math.random() * 86);
 
-          // Cor conforme chance
-          let color;
-          let chanceLabel;
+          let color, chanceLabel;
           if (chance < 40) {
             color = "#dc3545";
             chanceLabel = "🔴 Baixa";
@@ -401,14 +335,11 @@
             chanceLabel = "🟢 Alta";
           }
 
-          // Jogadores: varia de 500 a 5500, com pequenas variações de até 30% a mais ou menos
-          // Para manter mais realista, pegamos um valor base e aplicamos variações suaves
           let basePlayers = card.getAttribute("data-base-players");
           if (!basePlayers) {
             basePlayers = Math.floor(Math.random() * 5000 + 500);
             card.setAttribute("data-base-players", basePlayers);
           } else {
-            // Varia entre -30% e +30% do basePlayers, limitado a no mínimo 500
             const variation = (Math.random() * 0.6) - 0.3;
             let newPlayers = Math.floor(basePlayers * (1 + variation));
             if (newPlayers < 500) newPlayers = 500;
@@ -416,7 +347,6 @@
             card.setAttribute("data-base-players", basePlayers);
           }
 
-          // Atualiza elementos
           const progressFill = card.querySelector(".progress-fill");
           const chanceText = card.querySelector(".chance-text");
           const playersNow = card.querySelector(".players-now");
@@ -434,7 +364,7 @@
       const term = document.getElementById("search-input").value.toLowerCase();
       document.querySelectorAll(".game-card").forEach(card => {
         const name = card.querySelector(".game-name").textContent.toLowerCase();
-        card.style.display = name.includes(term) ? "block" : "none";
+        card.style.display = name.includes(term) ? "" : "none";
       });
     }
   </script>
