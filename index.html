@@ -1,372 +1,81 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="icon" href="https://i.imgur.com/GdgWwuH.png" />
-  <title>BotWin — O melhor analisador de jogos em tempo real</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BotWin — Análises de Jogos</title>
+  <link rel="icon" href="favicon.ico">
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #121212;
-      color: #eee;
-      margin: 0;
-      padding: 20px;
-      scroll-behavior: smooth;
-    }
-    h1, h2 {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-    #input-area {
-      text-align: center;
-      margin-top: 50px;
-    }
-    input[type="text"] {
-      width: 70%;
-      max-width: 400px;
-      padding: 10px;
-      font-size: 16px;
-      border-radius: 6px;
-      border: none;
-      margin-right: 10px;
-    }
-    button {
-      padding: 11px 18px;
-      font-size: 16px;
-      border: none;
-      background: #28a745;
-      color: white;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
-    button:hover {
-      background: #218838;
-    }
-    #loading {
-      text-align: center;
-      margin: 20px 0;
-      display: none;
-    }
-    #search-bar {
-      text-align: center;
-      margin: 30px 0 10px;
-    }
-    #search-input {
-      padding: 10px;
-      width: 70%;
-      max-width: 400px;
-      font-size: 16px;
-      border-radius: 6px;
-      border: none;
-    }
-    .section-title {
-      font-size: 22px;
-      margin: 40px 0 20px;
-      text-align: center;
-      border-bottom: 1px solid #333;
-      padding-bottom: 6px;
-    }
-    #games-container {
-      display: none;
-    }
-    .games-list {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 20px;
-      justify-items: center;
-    }
-    .game-card {
-      background: #1e1e1e;
-      border-radius: 12px;
-      width: 100%;
-      max-width: 250px;
-      padding: 15px;
-      text-align: center;
-      box-shadow: 0 0 5px #000;
-      transition: transform 0.3s ease;
-    }
-    .game-card:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 15px #28a745;
-    }
-    .game-card img {
-      width: 100%;
-      border-radius: 8px;
-      margin-bottom: 10px;
-      object-fit: contain;
-      height: 140px;
-    }
-    .game-name {
-      font-weight: bold;
-      font-size: 18px;
-      margin-bottom: 8px;
-    }
-    .progress-bar {
-      background: #444;
-      border-radius: 8px;
-      overflow: hidden;
-      margin-bottom: 6px;
-    }
-    .progress-fill {
-      height: 20px;
-      width: 0%;
-      transition: width 0.6s ease;
-      border-radius: 8px;
-    }
-    .chance-text {
-      font-weight: bold;
-      margin-bottom: 5px;
-    }
-    .players-now {
-      font-size: 14px;
-      color: #ccc;
-      margin-bottom: 12px;
-    }
-    .btn-play {
-      display: inline-block;
-      background: #007bff;
-      color: white;
-      padding: 10px 18px;
-      border-radius: 6px;
-      text-decoration: none;
-      font-weight: bold;
-      transition: background 0.3s ease;
-    }
-    .btn-play:hover {
-      background: #0056b3;
-    }
-
-    /* Responsividade */
-    @media (max-width: 899px) {
-      .games-list {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 16px;
-      }
-    }
-    @media (max-width: 599px) {
-      input[type="text"], #search-input {
-        width: 90%;
-        max-width: none;
-      }
-      .games-list {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 14px;
-      }
-      .game-card {
-        max-width: 100%;
-      }
-    }
-    footer {
-      text-align: center;
-      padding: 20px;
-      font-size: 14px;
-      color: #777;
-      margin-top: 60px;
-    }
-    #header-logo {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      margin-bottom: 20px;
-    }
-    #header-logo img {
-      width: 50px;
-      height: 50px;
-    }
+    body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#121212;color:#f0f0f0}
+    header{position:fixed;top:0;left:0;right:0;background:#1f1f1f;padding:12px 20px;display:flex;align-items:center;justify-content:space-between;z-index:10}
+    h1{font-size:18px;margin:0}
+    .search input{background:#2c2c2c;border:none;border-radius:6px;padding:6px 8px;color:#f0f0f0;outline:none}
+    main{padding:80px 20px}
+    h2{border-bottom:1px solid #444;padding-bottom:6px;margin:20px 0 12px}
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px}
+    .card{background:#1e1e1e;border-radius:10px;overflow:hidden;display:flex;flex-direction:column}
+    .thumb{width:100%;aspect-ratio:16/10;object-fit:cover}
+    .info{padding:10px;display:flex;flex-direction:column;gap:8px}
+    .title{font-weight:700}
+    .chip{font-size:.8rem;background:#2c2c2c;padding:3px 8px;border-radius:999px;display:inline-block}
+    .bar{height:10px;background:#333;border-radius:5px;overflow:hidden}
+    .bar span{display:block;height:100%;background:#4caf50;width:60%}
+    .btn{margin-top:auto;background:#4caf50;color:#fff;padding:8px;border:none;border-radius:6px;cursor:pointer;font-weight:700}
+    .btn:hover{background:#3ea046}
+    footer{margin-top:40px;background:#1f1f1f;padding:18px;text-align:center;color:#aaa}
   </style>
 </head>
 <body>
-
-  <div id="input-area">
-    <div id="header-logo">
-      <img src="https://i.imgur.com/WOFzRWS.png" alt="Logo BotWin" />
-      <h1>BotWin — O melhor analisador de jogos em tempo real</h1>
-    </div>
-    <input type="text" id="affiliateLink" placeholder="Cole aqui seu link" />
-    <button onclick="startAnalysis()">Analisar Jogos</button>
-  </div>
-
-  <div id="loading">Analisando jogos, aguarde...</div>
-
-  <div id="games-container">
-    <div id="search-bar">
-      <input type="text" id="search-input" placeholder="Pesquisar jogo..." oninput="filterGames()" />
-    </div>
-
-    <div id="pg-section">
-      <h2 class="section-title">PG Games</h2>
-      <div class="games-list" id="pg-games"></div>
-    </div>
-
-    <div id="papi-section">
-      <h2 class="section-title">PAPI Games</h2>
-      <div class="games-list" id="papi-games"></div>
-    </div>
-  </div>
-
-  <footer>
-    © 2025 <strong>Synboot</strong> — Todos os direitos reservados.<br />
-    🔞 Jogue com responsabilidade. Apenas para maiores de 18 anos.<br />
-    Nenhuma aposta é garantida. As análises são apenas indicativas.
-  </footer>
-
-  <script>
-    const games = {
-      pg: [
-        { nome: "Fortune Tiger", img: "https://i.imgur.com/XjblGLD.jpeg" },
-        { nome: "Wild Bandito", img: "https://i.imgur.com/oVrpBKF.png" },
-        { nome: "Dragon Hatch", img: "https://i.imgur.com/jmbae3y.png" },
-        { nome: "Fortune Dragon", img: "https://i.imgur.com/DgTsRgP.png" },
-        { nome: "Fortune Snake", img: "https://i.imgur.com/NgTo426.png" },
-        { nome: "Fortune Rabbit", img: "https://i.imgur.com/af43yCv.png" },
-        { nome: "Fortune OX", img: "https://i.imgur.com/WctuVK0.png" },
-        { nome: "Fortune Mouse", img: "https://i.imgur.com/mY8BKN9.png" },
-        { nome: "Lucky Neko", img: "https://i.imgur.com/N68ypEE.png" },
-        { nome: "Mahjong Ways", img: "https://i.imgur.com/4NrwZUL.png" },
-        { nome: "Mahjong Ways 2", img: "https://i.imgur.com/B7wmVlF.png" },
-        { nome: "Rise of Apollo", img: "https://i.imgur.com/bpboEwS.png" },
-        { nome: "Ganesha Gold", img: "https://i.imgur.com/Hc9Xwjf.png" },
-        { nome: "Double Fortune", img: "https://i.imgur.com/GjrWfPf.png" },
-        { nome: "Piggy Gold", img: "https://i.imgur.com/FuaekBL.png" },
-        { nome: "Dragon Tiger Luck", img: "https://i.imgur.com/sgNB8go.png" },
-        { nome: "Midas Fortune", img: "https://i.imgur.com/6tMDOW8.png" },
-        { nome: "Jungle Delight", img: "https://i.imgur.com/dJ6aAoV.png" },
-        { nome: "Ganesha Fortune", img: "https://i.imgur.com/sKmby2y.png" },
-        { nome: "The Great Icescape", img: "https://i.imgur.com/GdgWwuH.png" },
-        { nome: "Wild Bounty Showdown", img: "https://i.imgur.com/OZTbShr.png" },
-        { nome: "Lucky Piggy", img: "https://i.imgur.com/8XENqPt.png" },
-        { nome: "Prosperity Fortune Tree", img: "https://i.imgur.com/1Z6Pj9k.png" },
-        { nome: "Speed Winner", img: "https://i.imgur.com/BvqC2eZ.png" },
-        { nome: "Captain's Bounty", img: "https://i.imgur.com/SboTcid.png" },
-        { nome: "Treasures of Aztec", img: "https://i.imgur.com/KvRJ11M.png" },
-        { nome: "Genie's 3 Wishes", img: "https://i.imgur.com/Nw9LotC.png" },
-        { nome: "Buffalo Win", img: "https://i.imgur.com/Yz1Niq0.png" },
-        { nome: "Hip Hop Panda", img: "https://i.imgur.com/uSDwf8U.png" },
-        { nome: "Ways of the Qilin", img: "https://i.imgur.com/8CADai6.png" }
-      ],
-      papi: [
-        { nome: "Tigre Sortudo", img: "https://i.imgur.com/cmqwznS.png" },
-        { nome: "Joker's Jewels", img: "https://i.imgur.com/CnEqPGy.png" },
-        { nome: "Gates of Olympus", img: "https://i.imgur.com/Mcqsbkn.png" },
-        { nome: "Touro Sortudo", img: "https://i.imgur.com/vP3L5PN.png" },
-        { nome: "Sweet Bonanza", img: "https://i.imgur.com/57QyHid.png" },
-        { nome: "Ratinho Sortudo", img: "https://i.imgur.com/hO1pLzX.png" },
-        { nome: "Sugar Rush 1000", img: "https://i.imgur.com/7ZDtN7O.png" },
-        { nome: "Big Bass Splash", img: "https://i.imgur.com/iCssrTd.png" },
-        { nome: "Sweet Bonanza 1000", img: "https://i.imgur.com/PXagQV2.png" },
-        { nome: "Gates of Olympus 1000", img: "https://i.imgur.com/ryotk7R.png" },
-        { nome: "Sugar Rush", img: "https://i.imgur.com/DUSvuRe.png" },
-        { nome: "Gold Party", img: "https://i.imgur.com/OjtjHNW.png" },
-        { nome: "Zeus vs Hades", img: "https://i.imgur.com/Siw1nxf.png" },
-        { nome: "Big Bass Bonanza", img: "https://i.imgur.com/Q8g66Aa.png" },
-        { nome: "Triple Pot Gold", img: "https://i.imgur.com/ZgqGHFL.png" }
-      ]
-    };
-
-    let affiliateLink = "";
-    let intervalID;
-
-    function startAnalysis() {
-      const input = document.getElementById("affiliateLink").value.trim();
-      if (!input) {
-        alert("Insira seu link.");
-        return;
-      }
-      affiliateLink = input;
-      document.getElementById("input-area").style.display = "none";
-      document.getElementById("loading").style.display = "block";
-
-      setTimeout(() => {
-        document.getElementById("games-container").style.display = "block";
-        document.getElementById("loading").style.display = "none";
-        createGameCards();
-        updateGamesData();
-        intervalID = setInterval(updateGamesData, 80000);
-      }, 1000);
-    }
-
-    function createGameCards() {
-      ["pg", "papi"].forEach(category => {
-        const container = document.getElementById(`${category}-games`);
-        container.innerHTML = "";
-        games[category].forEach((game, index) => {
-          const card = document.createElement("div");
-          card.className = "game-card";
-          card.setAttribute("data-category", category);
-          card.setAttribute("data-index", index);
-          card.innerHTML = `
-            <img src="${game.img}" alt="${game.nome}">
-            <div class="game-name">${game.nome}</div>
-            <div class="progress-bar">
-              <div class="progress-fill" style="width: 0%;"></div>
-            </div>
-            <div class="chance-text"></div>
-            <div class="players-now"></div>
-            <a class="btn-play" target="_blank" href="${affiliateLink}">Jogar Agora</a>
-          `;
-          container.appendChild(card);
-        });
-      });
-    }
-
-    function updateGamesData() {
-      ["pg", "papi"].forEach(category => {
-        const container = document.getElementById(`${category}-games`);
-        const cards = container.querySelectorAll(".game-card");
-        cards.forEach(card => {
-          const category = card.getAttribute("data-category");
-          const index = parseInt(card.getAttribute("data-index"));
-          const game = games[category][index];
-
-          const chance = Math.floor(Math.random() * 86);
-
-          let color, chanceLabel;
-          if (chance < 40) {
-            color = "#dc3545";
-            chanceLabel = "🔴 Baixa";
-          } else if (chance < 70) {
-            color = "#ffc107";
-            chanceLabel = "🟡 Razoável";
-          } else {
-            color = "#28a745";
-            chanceLabel = "🟢 Alta";
-          }
-
-          let basePlayers = card.getAttribute("data-base-players");
-          if (!basePlayers) {
-            basePlayers = Math.floor(Math.random() * 5000 + 500);
-            card.setAttribute("data-base-players", basePlayers);
-          } else {
-            const variation = (Math.random() * 0.6) - 0.3;
-            let newPlayers = Math.floor(basePlayers * (1 + variation));
-            if (newPlayers < 500) newPlayers = 500;
-            basePlayers = newPlayers;
-            card.setAttribute("data-base-players", basePlayers);
-          }
-
-          const progressFill = card.querySelector(".progress-fill");
-          const chanceText = card.querySelector(".chance-text");
-          const playersNow = card.querySelector(".players-now");
-
-          progressFill.style.width = chance + "%";
-          progressFill.style.backgroundColor = color;
-          chanceText.textContent = `${chanceLabel} chance (${chance}%)`;
-          chanceText.style.color = color;
-          playersNow.textContent = `Jogadores agora: ${basePlayers.toLocaleString()}`;
-        });
-      });
-    }
-
-    function filterGames() {
-      const term = document.getElementById("search-input").value.toLowerCase();
-      document.querySelectorAll(".game-card").forEach(card => {
-        const name = card.querySelector(".game-name").textContent.toLowerCase();
-        card.style.display = name.includes(term) ? "" : "none";
-      });
-    }
-  </script>
+<header>
+  <img src="logo-botwin.png" alt="BotWin" style="height:40px">
+  <div class="search"><input id="q" type="text" placeholder="Buscar jogos..."></div>
+</header>
+<main>
+  <section>
+    <h2>PG Games</h2>
+    <div id="pg" class="grid"></div>
+  </section>
+  <section>
+    <h2>PAPI Games</h2>
+    <div id="papi" class="grid"></div>
+  </section>
+</main>
+<footer>18+ | Apostas não garantem lucro. Jogue com responsabilidade.</footer>
+<script>
+const MIN=55,MAX=85,UPDATE=80000,OSC=0.3;
+const DATA={pg:[
+ {name:"Fortune Tiger",img:"https://picsum.photos/seed/tiger/400/250",chance:72,players:640},
+ {name:"Fortune Rabbit",img:"https://picsum.photos/seed/rabbit/400/250",chance:64,players:520}
+],papi:[
+ {name:"PAPI Stars",img:"https://picsum.photos/seed/stars/400/250",chance:62,players:410},
+ {name:"PAPI Gems",img:"https://picsum.photos/seed/gems/400/250",chance:63,players:305}
+]};
+function clamp(n,a,b){return Math.max(a,Math.min(b,n))}
+function rand(min,max){return Math.random()*(max-min)+min}
+function makeCard(g){
+  const c=document.createElement('div');c.className="card";c.dataset.name=g.name.toLowerCase();
+  const img=new Image();img.src=g.img;img.className="thumb";
+  const info=document.createElement('div');info.className="info";
+  const t=document.createElement('div');t.className="title";t.textContent=g.name;
+  const chip=document.createElement('span');chip.className="chip";chip.textContent="👥 "+g.players+" online";
+  const chance=document.createElement('div');const val=clamp(g.chance,MIN,MAX);chance.textContent="Chance de vitória: "+val+"%";
+  const bar=document.createElement('div');bar.className="bar";const fill=document.createElement('span');fill.style.width=val+"%";bar.appendChild(fill);
+  const btn=document.createElement('button');btn.className="btn";btn.textContent="Jogar Agora";btn.onclick=()=>window.open("https://exemplo.com","_blank");
+  info.append(t,chip,chance,bar,btn);c.append(img,info);
+  c._players=chip;c._fill=fill;c._chance=chance;return c;
+}
+function render(){["pg","papi"].forEach(cat=>{const mount=document.getElementById(cat);DATA[cat].forEach(g=>mount.appendChild(makeCard(g)));})}
+function update(){document.querySelectorAll(".card").forEach(c=>{
+  const cur=parseInt(c._fill.style.width);const next=clamp(cur+Math.round(rand(-5,5)),MIN,MAX);
+  c._fill.style.width=next+"%";c._chance.textContent="Chance de vitória: "+next+"%";
+  const base=parseInt(c._players.textContent.replace(/\D/g,""));const osc=base*OSC;const now=Math.max(1,Math.round(base+rand(-osc,osc)));
+  c._players.textContent="👥 "+now+" online";
+})}
+document.getElementById("q").addEventListener("input",e=>{
+  const term=e.target.value.toLowerCase();
+  document.querySelectorAll(".card").forEach(c=>c.style.display=term && !c.dataset.name.includes(term)?"none":"")
+})
+render();setInterval(update,UPDATE);
+</script>
 </body>
 </html>
